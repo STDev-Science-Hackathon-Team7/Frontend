@@ -23,5 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 
-sw.js
-workbox-*.js
+
+.env
