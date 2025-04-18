@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo, useCallback } from "react";
 
 interface SkyCondition {
 	status: string;
@@ -10,7 +10,8 @@ interface RecordButtonProps {
 	onClick: () => void;
 }
 
-export function RecordButton({ onClick }: RecordButtonProps) {
+// memo
+export const RecordButton = memo(function RecordButton({ onClick }: RecordButtonProps) {
 	const [skyCondition, setSkyCondition] = useState<SkyCondition | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -35,6 +36,11 @@ export function RecordButton({ onClick }: RecordButtonProps) {
 		fetchSkyCondition();
 	}, []);
 
+	// 버튼 클릭 핸들러 메모이제이션
+	const handleClick = useCallback(() => {
+		onClick();
+	}, [onClick]);
+
 	return (
 		<div className="w-[328px] h-[52px] flex items-center justify-between bg-white rounded-full shadow-md">
 			<div className="flex items-center justify-center h-[38px] w-[152px] !ml-2">
@@ -48,9 +54,9 @@ export function RecordButton({ onClick }: RecordButtonProps) {
 				)}
 			</div>
 
-			<Button className="!bg-[#1B45C9] text-white rounded-full h-[38px] w-[152px] !mr-2" onClick={onClick}>
+			<Button className="!bg-[#1B45C9] text-white rounded-full h-[38px] w-[152px] !mr-2" onClick={handleClick}>
 				밤 하늘 기록하기
 			</Button>
 		</div>
 	);
-}
+});
