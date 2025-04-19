@@ -154,6 +154,9 @@ export function MapContainer({ initialShowSpots = false }: { initialShowSpots?: 
 	// 명소 모드일 때만 다음 버튼 표시
 	const showNextButton = showSpots && spotMarkers.length > 1;
 
+	// 명소 모드일 때는 RecordButton 숨기기
+	const showRecordButton = !showSpots;
+
 	return (
 		<>
 			<div key={refreshKey} className="w-full h-full">
@@ -171,9 +174,11 @@ export function MapContainer({ initialShowSpots = false }: { initialShowSpots?: 
 				{showNextButton && <NextSpotButton onClick={goToNextSpot} />}
 			</div>
 
-			<div className={recordButtonClassName}>
-				<RecordButton onClick={handleRecordClick} />
-			</div>
+			{showRecordButton && (
+				<div className={recordButtonClassName}>
+					<RecordButton onClick={handleRecordClick} />
+				</div>
+			)}
 
 			{selectedMarker && !isSpotMarker && (
 				<MarkerInfoCard markerData={selectedMarker} isOpen={isCardOpen} onClose={handleCloseCard} />
