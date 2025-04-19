@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 interface CardProps {
 	title: string;
-	description: string;
+	description?: string;
 	image?: React.ReactNode;
 	width?: string;
 	height?: string;
@@ -45,6 +45,10 @@ export default function Home() {
 		navigate("/map");
 	}, [navigate]);
 
+	const handleFormClick = useCallback(() => {
+		window.open("https://forms.gle/sKTY4bfynVkEhPea9", "_blank");
+	}, []);
+
 	return (
 		<div className="h-screen flex flex-col overflow-hidden">
 			<TopNav title="대전 유성구 엑스포로 107" />
@@ -68,33 +72,27 @@ export default function Home() {
 			<div className="flex flex-col gap-4 bg-[#EAEBED] rounded-t-[20px] p-5 h-[60%]">
 				<div className="grid grid-cols-2 gap-3 h-[65%]">
 					<Card
-						title="별 관찰 지도"
-						description="좋음 (맑은 밤)"
+						title="밤 하늘 지도"
+						description="등록 및 히트맵"
 						height="100%"
 						className="bg-[#1B45C9] text-white"
 						onClick={handleMapClick}
 					/>
 					<div className="grid grid-rows-2 gap-3">
 						<Card
-							title="서울 시간"
-							description="20:30"
+							title="빛공해 레벨"
+							description="빛공해가 뭐에요?"
 							height="100%"
 							className="bg-white"
 							onClick={() => {}}
 						/>
-						<Card
-							title="서울 시간"
-							description="20:30"
-							height="100%"
-							className="bg-white"
-							onClick={() => {}}
-						/>
+						<Card title="빛공해 건의하기" height="100%" className="bg-white" onClick={handleFormClick} />
 					</div>
 				</div>
 
 				<Card
-					title="전국 TOP 5 별 지역"
-					description="경기 1-1"
+					title="밤 하늘 명소"
+					description="별 볼일 있는 지도가 추천하는 별 구경 명소⭐"
 					height="25%"
 					className="bg-white"
 					onClick={() => {}}
