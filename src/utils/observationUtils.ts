@@ -1,5 +1,6 @@
 import { ImageAnalysis, UserInput } from "@/types/observation";
 import { MarkerData } from "@/types";
+import { SpotData } from "@/services/observationService";
 
 /**
  * 별 개수 텍스트 가져오기
@@ -115,5 +116,42 @@ export function observationToMarkerData(observation: {
 		imageUrl: `/assets/map/icn_place${markerImageNumber}.svg`,
 		starCount,
 		date: formattedDate
+	};
+}
+
+/**
+ * bortle_scale에 따른 마커 이미지 번호 가져오기
+ */
+export function getBortleScaleMarkerImage(bortleScale: number): number {
+	// bortle scale: 1-9 (낮을수록 어두운 밤하늘)
+	if (bortleScale <= 2) return 4; // 매우 좋음
+	if (bortleScale <= 4) return 3; // 좋음
+	if (bortleScale <= 6) return 2; // 보통
+	return 1; // 나쁨
+}
+
+/**
+ * 명소 데이터를 마커 데이터로 변환
+ */
+export function spotToMarkerData(spot: SpotData): MarkerData {
+	// 마커 이미지 번호 결정 (bortle_scale 사용)
+	const markerImageNumber = getBortleScaleMarkerImage(spot.sky_quality.bortle_scale);
+
+	// 날짜 포맷팅
+	const createdDate = new Date(spot.created_at);
+	const formattedDate = createdDate.toISOString().split("T")[0];
+
+	return {
+		id: spot._id,
+		position: {
+			lat: spot.location.latitude,
+			lng: spot.location.longitude
+		},
+		title: spot.name,
+		skyQuality: spot.sky_quality.category,
+		imageUrl: `/assets/map/icn_place${markerImageNumber}.svg`,
+		starCount: Math.round(spot.sky_quality.score / 10), // 점수를 10으로 나눈 값 (약 1-10개)
+		date: formattedDate,
+		description: spot.description
 	};
 }

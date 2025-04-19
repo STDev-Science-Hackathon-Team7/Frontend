@@ -6,9 +6,10 @@ interface BottomSectionProps {
 	onMapClick: () => void;
 	onDescriptionClick: () => void;
 	onFormClick: () => void;
+	onSpotsClick: () => void;
 }
 
-export function BottomSection({ onMapClick, onDescriptionClick, onFormClick }: BottomSectionProps) {
+export function BottomSection({ onMapClick, onDescriptionClick, onFormClick, onSpotsClick }: BottomSectionProps) {
 	return (
 		<div className="flex flex-col gap-4 bg-[#EAEBED] rounded-t-[20px] p-4 h-[60%] mt-1">
 			<div className="grid grid-cols-2 gap-4 h-[65%]">
@@ -51,7 +52,7 @@ export function BottomSection({ onMapClick, onDescriptionClick, onFormClick }: B
 				description="별 볼일 있는 지도가 추천하는 별 구경 명소⭐"
 				height="25%"
 				className="bg-white"
-				onClick={() => {}}
+				onClick={onSpotsClick}
 			/>
 		</div>
 	);

@@ -6,9 +6,23 @@ import { MarkerData } from "@/types";
 
 interface MapWrapperProps {
 	onMarkerSelect?: (marker: MarkerData) => void;
+	showObservations?: boolean;
+	showSpots?: boolean;
+	spotData?: {
+		spots: MarkerData[];
+		loading: boolean;
+		error: string | null;
+	};
+	onMapInit?: (map: google.maps.Map) => void;
 }
 
-export function MapWrapper({ onMarkerSelect }: MapWrapperProps) {
+export function MapWrapper({
+	onMarkerSelect,
+	showObservations = true,
+	showSpots = false,
+	spotData,
+	onMapInit
+}: MapWrapperProps) {
 	const { userLocation, loading, error } = useLocation();
 	console.log("userLocation", userLocation);
 	// 위치 정보 가져오는 중 표시
@@ -29,7 +43,14 @@ export function MapWrapper({ onMarkerSelect }: MapWrapperProps) {
 
 	return (
 		<Wrapper apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY || ""} render={renderStatus}>
-			<MapView center={userLocation} onMarkerSelect={onMarkerSelect} />
+			<MapView
+				center={userLocation}
+				onMarkerSelect={onMarkerSelect}
+				showObservations={showObservations}
+				showSpots={showSpots}
+				spotData={spotData}
+				onMapInit={onMapInit}
+			/>
 		</Wrapper>
 	);
 }
