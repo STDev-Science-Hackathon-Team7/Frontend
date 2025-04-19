@@ -56,6 +56,11 @@ export default function Home() {
 		navigate("/description");
 	}, []);
 
+	const handleSpotsClick = useCallback(() => {
+		// showSpots=true 쿼리 파라미터를 추가하여 Map 페이지에 명소 표시 모드로 이동
+		navigate("/map?showSpots=true");
+	}, [navigate]);
+
 	let topNavTitle = address;
 
 	if (locationLoading) {
@@ -82,6 +87,7 @@ export default function Home() {
 				onMapClick={handleMapClick}
 				onDescriptionClick={handleDescriptionClick}
 				onFormClick={handleFormClick}
+				onSpotsClick={handleSpotsClick}
 			/>
 		</div>
 	);

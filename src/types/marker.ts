@@ -9,4 +9,5 @@ export interface MarkerData {
 	imageUrl: string;
 	starCount: number;
 	date: string;
+	description?: string;
 }
