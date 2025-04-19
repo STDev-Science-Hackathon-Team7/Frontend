@@ -10,7 +10,7 @@ export function TopNav({ title }: TopNavProps) {
 	};
 
 	return (
-		<div className="flex items-center h-14 border-none px-4 relative">
+		<div className="flex items-center h-14 border-none px-4 relative bg-red-400">
 			<button className="p-0 absolute left-4" onClick={handleBackClick}>
 				{/* 조건부 렌더링  추가 하기*/}
 				<ChevronLeft className="h-6 w-6" />

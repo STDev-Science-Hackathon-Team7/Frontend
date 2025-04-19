@@ -42,8 +42,8 @@ export const RecordButton = memo(function RecordButton({ onClick }: RecordButton
 	}, [onClick]);
 
 	return (
-		//홈, 맵에서 다른 규격 고려해서 컴포넌트 리팩토링 필요!!!
-		<div className=" h-[52px] flex items-center justify-between bg-white rounded-full shadow-md">
+		//홈, 맵에서 다른 규격 고려해서 컴포넌트 리팩토링
+		<div className=" w-full h-[52px] flex items-center justify-between bg-white rounded-full shadow-md">
 			<div className="flex items-center justify-center h-[38px] w-[152px] !ml-2">
 				{isLoading ? (
 					"로딩 중..."
