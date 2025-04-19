@@ -86,29 +86,35 @@ export default function StarWrite() {
 		const apiUrl = import.meta.env.VITE_API_URL;
 
 		const formData = new FormData();
-		formData.append("latitude", String(userLocation.lat));
-		formData.append("longitude", String(userLocation.lng));
-		formData.append("title", form.title);
-		formData.append("content", form.content);
-		formData.append("manual_star_count_range", form.starCount);
 		formData.append("image", form.imageFile);
 
 		try {
-			const response = await axios.post(`${apiUrl}/upload`, formData, {
-				headers: {
-					"Content-Type": "multipart/form-data",
-					Accept: "application/json"
-				}
-			});
-			console.log("업로드 성공:", response.data);
+			const [response] = await Promise.all([
+				axios.post(`${apiUrl}/analyze-image`, formData, {
+					headers: {
+						"Content-Type": "multipart/form-data",
+						Accept: "application/json"
+					}
+				}),
+				new Promise((resolve) => setTimeout(resolve, 2000)) // 최소 2초 대기
+			]);
+
+			console.log("분석 성공:", response.data);
 			navigate("/starWriteUpload", {
 				state: {
 					uploadedData: response.data,
-					imagePreview: form.imagePreview
+					form: {
+						title: form.title,
+						content: form.content,
+						starCount: form.starCount,
+						img: form.imagePreview,
+						latitude: userLocation.lat,
+						longitude: userLocation.lng
+					}
 				}
 			});
 		} catch (error) {
-			console.error("업로드 실패:", error);
+			console.error("분석 실패:", error);
 		} finally {
 			setIsLoading(false);
 		}

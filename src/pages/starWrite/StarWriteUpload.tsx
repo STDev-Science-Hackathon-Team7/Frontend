@@ -5,11 +5,18 @@ import StarLevelIcon1 from "@/assets/starWrite/StarLevelIcon1.svg?react";
 import StarLevelIcon2 from "@/assets/starWrite/StarLevelIcon2.svg?react";
 import StarLevelIcon3 from "@/assets/starWrite/StarLevelIcon3.svg?react";
 import StarLevelIcon4 from "@/assets/starWrite/StarLevelIcon4.svg?react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import Lottie from "lottie-react";
+import LoadingAnimation from "@/assets/icons/LoadingAnimation.json";
 
 export default function StarWriteUpload() {
+	const navigate = useNavigate();
 	const location = useLocation();
-	const { uploadedData, imagePreview } = location.state ?? {};
+	const { uploadedData, form } = location.state ?? {};
+	const [loading, setLoading] = useState(false);
+
 	console.log("업로드 결과:", uploadedData);
 
 	const levelPositionMap = {
@@ -21,8 +28,37 @@ export default function StarWriteUpload() {
 
 	const currentLevel = levelPositionMap[uploadedData.image_analysis.star_category as 1 | 2 | 3 | 4];
 
+	const handleSubmit = async () => {
+		setLoading(true);
+		const apiUrl = import.meta.env.VITE_API_URL;
+
+		const data = new URLSearchParams();
+		data.append("temp_id", uploadedData.temp_id);
+		data.append("latitude", form.latitude);
+		data.append("longitude", form.longitude);
+		data.append("title", form.title);
+		data.append("content", form.content);
+		data.append("manual_star_count_range", form.starCount);
+
+		try {
+			const response = await axios.post(`${apiUrl}/confirm-upload`, data.toString(), {
+				headers: {
+					"Content-Type": "application/x-www-form-urlencoded",
+					Accept: "application/json"
+				}
+			});
+			console.log("응답 성공:", response.data);
+			navigate("/map");
+		} catch (error) {
+			console.error("에러 발생:", error);
+		}
+	};
+
 	return (
-		<div className="px-[22px] pb-20">
+		<div className="px-[22px] pb-20 relative">
+			{loading && (
+				<Lottie animationData={LoadingAnimation} loop className="absolute z-20 left-1/2 top-1/3 transform -translate-x-1/2" />
+			)}
 			<Header backTo="map">
 				밤 하늘 기록
 			</Header>
@@ -44,20 +80,17 @@ export default function StarWriteUpload() {
 					</div>
 					<span className="text-gray-sub text-[0.625rem] min-w-7">레벨 4</span>
 				</div>
-				<img src={imagePreview} className="rounded-xl max-h-[346px] w-full" />
+				<img src={form.img} className="rounded-xl max-h-[346px] w-full" />
 				<div className="mt-4">
 					<h3 className="text-sm font-semibold mb-2">글 제목</h3>
 					<div
 						className="font-medium px-4 py-3 text-xs/5 border-border flex w-full min-h-22 rounded-xl border-[2px]">
-						{uploadedData.user_input.title}
+						{form.title}
 					</div>
 				</div>
 			</main>
 			<Footer>
-				<Button
-					onClick={() => {
-					}}
-				>
+				<Button onClick={handleSubmit}>
 					업로드
 				</Button>
 			</Footer>
