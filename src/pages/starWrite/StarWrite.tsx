@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
-import PlusIcon from "@/assests/starWrite/PlusIcon.svg?react";
+import PlusIcon from "@/assets/starWrite/PlusIcon.svg?react";
 import Loading from "@/pages/starWrite/components/Loading.tsx";
 import Header from "@/pages/starWrite/ui/Header.tsx";
 import RadioGroup from "@/pages/starWrite/components/RadioGroup.tsx";
@@ -106,7 +106,10 @@ export default function StarWrite() {
 					<section className="flex flex-col gap-3 my-4">
 						<div>
 							<h3 className="text-sm font-semibold">사진을 등록해주세요</h3>
-							<h4 className="text-xs text-gray-sub">가로등 등 불빛을 직접적으로 찍으면 안돼요</h4>
+		
+							<h4 className="text-xs text-gray-sub">
+								정확한 빛공해 측정을 위해 가로등이나 간판 등 인공 조명을 직접 촬영하는 것은 피해 주세요.
+							</h4>
 						</div>
 						<div className="flex gap-4">
 							<button
@@ -154,7 +157,7 @@ export default function StarWrite() {
 							<h3 className="text-sm font-semibold">
 								별 개수를 선택해주세요<span className="text-primary">(필수)</span>
 							</h3>
-							<h4 className="text-xs text-gray-sub mb-2">어쩌구저쩌구</h4>
+							<h4 className="text-xs text-gray-sub mb-2">가시적으로 보이는 별의 개수를 선택해주세요.</h4>
 							<RadioGroup
 								name="starCount"
 								options={options}

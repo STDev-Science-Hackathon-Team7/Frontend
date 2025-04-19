@@ -2,11 +2,11 @@ import { useState } from "react";
 import Header from "@/pages/starWrite/ui/Header.tsx";
 import Footer from "@/pages/starWrite/ui/Footer.tsx";
 import Button from "@/pages/starWrite/components/Button.tsx";
-import test from "@/assests/starWrite/test.jpg";
-import StarLevelIcon1 from "@/assests/starWrite/StarLevelIcon1.svg?react";
-import StarLevelIcon2 from "@/assests/starWrite/StarLevelIcon2.svg?react";
-import StarLevelIcon3 from "@/assests/starWrite/StarLevelIcon3.svg?react";
-import StarLevelIcon4 from "@/assests/starWrite/StarLevelIcon4.svg?react";
+import test from "@/assets/starWrite/test.jpg";
+import StarLevelIcon1 from "@/assets/starWrite/StarLevelIcon1.svg?react";
+import StarLevelIcon2 from "@/assets/starWrite/StarLevelIcon2.svg?react";
+import StarLevelIcon3 from "@/assets/starWrite/StarLevelIcon3.svg?react";
+import StarLevelIcon4 from "@/assets/starWrite/StarLevelIcon4.svg?react";
 
 export default function StarWriteUpload() {
 	const [count, setCount] = useState(0);
@@ -24,15 +24,15 @@ export default function StarWriteUpload() {
 
 	return (
 		<div className="px-[22px] pb-20">
-			<Header>
+			<Header backTo="map">
 				밤 하늘 기록
 			</Header>
 			<main className="mt-4">
 				<div>
 					<h3 className="text-sm font-semibold">분석 결과</h3>
 					<h4 className="text-xs text-gray-sub">
-						오늘 밤 하늘에 별 개수는 <span className="text-[#1B45C9]">{count}</span>이고, 빛공해 수준은
-						<span className="text-[#1B45C9]"> {level}레벨</span>이야
+						밤 하늘에 별 개수는 <span className="text-[#1B45C9]">{count}</span>개이고, 빛공해 수준은
+						<span className="text-[#1B45C9]"> {level}레벨</span>입니다.
 					</h4>
 				</div>
 				<div className="mt-11 mb-4 flex gap-3 items-center justify-center">
