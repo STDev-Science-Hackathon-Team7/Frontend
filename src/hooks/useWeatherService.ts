@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { fetchWeatherAndAirPollution, WeatherData, AirPollutionData } from "@/services/weather";
+import { fetchWeatherAndAirPollution } from "@/services/weather";
+import { WeatherData, AirPollutionData } from "@/types/weather";
 import { CacheStorage } from "@/utils/cacheStorage";
 
 interface WeatherServiceHookResult {
