@@ -27,6 +27,9 @@ export function WeatherCard({ isLoading, weather, airPollution }: WeatherCardPro
 	// 날씨 코드에 따른 한글 설명
 	const weatherDescription = weather?.icon ? getWeatherDescription(weather.icon) : "";
 
+	// 날씨 데이터가 있으면서 로딩 중이 아닌 경우, 캐시된 데이터를 사용하는 것으로 간주
+	const usingCachedData = !isLoading && weather !== null;
+
 	return (
 		<div className="rounded-2xl border-2 border-gray-200 p-0 flex flex-col w-full h-[80%]">
 			<div className="w-full h-full flex justify-between items-center px-2">
