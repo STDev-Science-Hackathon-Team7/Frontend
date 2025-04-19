@@ -2,11 +2,11 @@ import { useState } from "react";
 import Header from "@/pages/starWrite/ui/Header.tsx";
 import Footer from "@/pages/starWrite/ui/Footer.tsx";
 import Button from "@/pages/starWrite/components/Button.tsx";
-import test from "@/assests/starWrite/test.jpg";
-import StarLevelIcon1 from "@/assests/starWrite/StarLevelIcon1.svg?react";
-import StarLevelIcon2 from "@/assests/starWrite/StarLevelIcon2.svg?react";
-import StarLevelIcon3 from "@/assests/starWrite/StarLevelIcon3.svg?react";
-import StarLevelIcon4 from "@/assests/starWrite/StarLevelIcon4.svg?react";
+import test from "@/assets/starWrite/test.jpg";
+import StarLevelIcon1 from "@/assets/starWrite/StarLevelIcon1.svg?react";
+import StarLevelIcon2 from "@/assets/starWrite/StarLevelIcon2.svg?react";
+import StarLevelIcon3 from "@/assets/starWrite/StarLevelIcon3.svg?react";
+import StarLevelIcon4 from "@/assets/starWrite/StarLevelIcon4.svg?react";
 
 export default function StarWriteUpload() {
 	const [count, setCount] = useState(0);
@@ -24,7 +24,7 @@ export default function StarWriteUpload() {
 
 	return (
 		<div className="px-[22px] pb-20">
-			<Header>
+			<Header backTo="map">
 				밤 하늘 기록
 			</Header>
 			<main className="mt-4">

@@ -1,4 +1,4 @@
-import CheckIcon from "@/assests/starWrite/CheckIcon.svg?react";
+import CheckIcon from "@/assets/starWrite/CheckIcon.svg?react";
 
 type Option = {
 	label: string;

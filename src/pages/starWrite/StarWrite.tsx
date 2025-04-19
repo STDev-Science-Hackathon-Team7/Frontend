@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
-import PlusIcon from "@/assests/starWrite/PlusIcon.svg?react";
+import PlusIcon from "@/assets/starWrite/PlusIcon.svg?react";
 import Loading from "@/pages/starWrite/components/Loading.tsx";
 import Header from "@/pages/starWrite/ui/Header.tsx";
 import RadioGroup from "@/pages/starWrite/components/RadioGroup.tsx";
