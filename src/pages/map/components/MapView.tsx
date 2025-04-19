@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { UserMarker } from "./marker/UserMarker";
-import { SpotMarkers } from "./marker/MockMarkers";
+import { RealMarkers } from "./marker/RealMarkers";
 import { MarkerData } from "@/types";
 
 interface MapProps {
@@ -16,7 +16,7 @@ export const MapView = ({ center, onMarkerSelect }: MapProps) => {
 		if (ref.current && !map) {
 			const newMap = new google.maps.Map(ref.current, {
 				center,
-				zoom: 18,
+				zoom: 15,
 				disableDefaultUI: true,
 				clickableIcons: false,
 				minZoom: 10,
@@ -43,7 +43,7 @@ export const MapView = ({ center, onMarkerSelect }: MapProps) => {
 		<>
 			<div ref={ref} className="w-full h-full" />
 			{map && <UserMarker map={map} position={center} />}
-			{map && <SpotMarkers map={map} userLocation={center} onMarkerSelect={onMarkerSelect} />}
+			{map && <RealMarkers map={map} userLocation={center} onMarkerSelect={onMarkerSelect} />}
 		</>
 	);
 };
