@@ -19,7 +19,7 @@ export function TopNav({ title, showBackButton = true, backPath }: TopNavProps) 
 	};
 
 	return (
-		<div className="flex items-center h-14 border-none px-4 relative bg-red-400">
+		<div className="flex items-center h-14 border-none px-4 relative bg-white">
 			{showBackButton && (
 				<button className="p-0 absolute left-4" onClick={handleBackClick}>
 					<ChevronLeft className="h-6 w-6" />
