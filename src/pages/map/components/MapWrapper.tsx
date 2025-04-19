@@ -1,7 +1,7 @@
 import { Wrapper } from "@googlemaps/react-wrapper";
 import { MapView } from "./MapView";
 import { renderStatus, LoadingMessage } from "./MapStatus";
-import { useGeolocation } from "@/hooks/useGeolocation";
+import { useLocation } from "@/contexts/LocationContext";
 import { MarkerData } from "@/types";
 
 interface MapWrapperProps {
@@ -9,7 +9,7 @@ interface MapWrapperProps {
 }
 
 export function MapWrapper({ onMarkerSelect }: MapWrapperProps) {
-	const { userLocation, loading, error } = useGeolocation();
+	const { userLocation, loading, error } = useLocation();
 
 	// 위치 정보 가져오는 중 표시
 	if (loading) {
