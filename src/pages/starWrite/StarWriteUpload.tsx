@@ -31,8 +31,8 @@ export default function StarWriteUpload() {
 				<div>
 					<h3 className="text-sm font-semibold">분석 결과</h3>
 					<h4 className="text-xs text-gray-sub">
-						오늘 밤 하늘에 별 개수는 <span className="text-[#1B45C9]">{count}</span>이고, 빛공해 수준은
-						<span className="text-[#1B45C9]"> {level}레벨</span>이야
+						밤 하늘에 별 개수는 <span className="text-[#1B45C9]">{count}</span>개이고, 빛공해 수준은
+						<span className="text-[#1B45C9]"> {level}레벨</span>입니다.
 					</h4>
 				</div>
 				<div className="mt-11 mb-4 flex gap-3 items-center justify-center">
