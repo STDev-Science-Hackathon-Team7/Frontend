@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { RecordButton } from "../map/components/button/RecordButton";
 import { TopNav } from "@/layouts/TopNav";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "@/contexts/LocationContext";
 
 interface CardProps {
 	title: string;
@@ -35,6 +36,8 @@ const Card = ({ title, description, image, width, height, className = "", onClic
 
 export default function Home() {
 	const navigate = useNavigate();
+	const { userLocation } = useLocation();
+	console.log(userLocation);
 
 	const handleRecordClick = useCallback(() => {
 		console.log("Navigating to /starWrite");
@@ -48,6 +51,11 @@ export default function Home() {
 	const handleFormClick = useCallback(() => {
 		window.open("https://forms.gle/sKTY4bfynVkEhPea9", "_blank");
 	}, []);
+
+	const handleDescriptionClick = useCallback(() => {
+		navigate("/description");
+	}, []);
+	//좌표값
 
 	return (
 		<div className="h-screen flex flex-col overflow-hidden">
@@ -65,7 +73,7 @@ export default function Home() {
 					height="70%"
 					className="mt-2"
 				/>
-				<div className="flex justify-center ">
+				<div className="flex justify-center">
 					<RecordButton onClick={handleRecordClick} />
 				</div>
 			</div>
@@ -84,7 +92,7 @@ export default function Home() {
 							description="빛공해가 뭐에요?"
 							height="100%"
 							className="bg-white"
-							onClick={() => {}}
+							onClick={handleDescriptionClick}
 						/>
 						<Card title="빛공해 건의하기" height="100%" className="bg-white" onClick={handleFormClick} />
 					</div>

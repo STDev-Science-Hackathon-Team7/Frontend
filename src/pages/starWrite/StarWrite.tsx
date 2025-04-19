@@ -8,6 +8,7 @@ import Button from "@/pages/starWrite/components/Button.tsx";
 import TextInput from "@/pages/starWrite/components/TextInput.tsx";
 import Divider from "@/pages/starWrite/components/Divider.tsx";
 import TextArea from "@/pages/starWrite/components/TextArea.tsx";
+import { useLocation } from "@/contexts/LocationContext";
 
 const options = [
 	{ label: "0", value: "0" },
@@ -33,6 +34,10 @@ export default function StarWrite() {
 		imagePreview: null,
 		imageFile: null
 	});
+
+	//위치 정보
+	const { userLocation } = useLocation();
+	console.log("write:", userLocation);
 
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -101,9 +106,7 @@ export default function StarWrite() {
 					<section className="flex flex-col gap-3 my-4">
 						<div>
 							<h3 className="text-sm font-semibold">사진을 등록해주세요</h3>
-							<h4 className="text-xs text-gray-sub">
-								가로등 등 불빛을 직접적으로 찍으면 안돼요
-							</h4>
+							<h4 className="text-xs text-gray-sub">가로등 등 불빛을 직접적으로 찍으면 안돼요</h4>
 						</div>
 						<div className="flex gap-4">
 							<button
@@ -136,18 +139,14 @@ export default function StarWrite() {
 								<h4 className="text-xs text-gray-sub font-medium mb-1">글 제목</h4>
 								<TextInput
 									value={form.title}
-									onChange={(e) =>
-										setForm((prev) => ({ ...prev, title: e.target.value }))
-									}
+									onChange={(e) => setForm((prev) => ({ ...prev, title: e.target.value }))}
 								/>
 							</div>
 							<div>
 								<h4 className="text-xs text-gray-sub font-medium mb-1">글 내용</h4>
 								<TextArea
 									value={form.content}
-									onChange={(e) =>
-										setForm((prev) => ({ ...prev, content: e.target.value }))
-									}
+									onChange={(e) => setForm((prev) => ({ ...prev, content: e.target.value }))}
 								/>
 							</div>
 						</div>
@@ -160,9 +159,7 @@ export default function StarWrite() {
 								name="starCount"
 								options={options}
 								selectedValue={form.starCount}
-								onChange={(value) =>
-									setForm((prev) => ({ ...prev, starCount: value }))
-								}
+								onChange={(value) => setForm((prev) => ({ ...prev, starCount: value }))}
 							/>
 						</div>
 					</section>
