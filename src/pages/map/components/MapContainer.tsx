@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import { LocationButton } from "./button/LocationButton";
 import { RecordButton } from "./button/RecordButton";
 import { MarkerInfoCard } from "./marker/MarkerInfoCard";
@@ -11,6 +11,13 @@ export function MapContainer() {
 	const [selectedMarker, setSelectedMarker] = useState<MarkerData | null>(null);
 	const [isCardOpen, setIsCardOpen] = useState(false);
 	const [refreshKey, setRefreshKey] = useState(0);
+	const [isIOS, setIsIOS] = useState(false);
+
+	// iOS 환경 감지
+	useEffect(() => {
+		const userAgent = window.navigator.userAgent.toLowerCase();
+		setIsIOS(/iphone|ipad|ipod/.test(userAgent));
+	}, []);
 
 	const handleCurrentLocation = useCallback(() => {
 		setRefreshKey((prev) => prev + 1);
@@ -35,10 +42,10 @@ export function MapContainer() {
 
 	const recordButtonClassName = useMemo(
 		() =>
-			`absolute bottom-6 left-0 right-0 flex justify-center z-50 transition-transform duration-300 ease-in-out ${
-				isCardOpen ? "translate-y-[-210px]" : "translate-y-0"
+			`absolute bottom-6 left-0 right-0 flex justify-center z-20 transition-transform duration-300 ease-in-out ${
+				isCardOpen ? (isIOS ? "translate-y-[-260px]" : "translate-y-[-210px]") : "translate-y-0"
 			}`,
-		[isCardOpen]
+		[isCardOpen, isIOS]
 	);
 
 	return (

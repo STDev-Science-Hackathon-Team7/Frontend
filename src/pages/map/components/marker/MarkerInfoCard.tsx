@@ -20,6 +20,12 @@ interface MarkerInfoCardProps {
 export const MarkerInfoCard = memo(function MarkerInfoCard({ markerData, onClose, isOpen }: MarkerInfoCardProps) {
 	const { observation, loading, error } = useObservationDetail(isOpen ? markerData.id : null);
 	const [imageUrl, setImageUrl] = useState<string>(defaultImage);
+	const [isIOS, setIsIOS] = useState(false);
+
+	useEffect(() => {
+		const userAgent = window.navigator.userAgent.toLowerCase();
+		setIsIOS(/iphone|ipad|ipod/.test(userAgent));
+	}, []);
 
 	useEffect(() => {
 		if (observation?.image_url) {
@@ -46,13 +52,15 @@ export const MarkerInfoCard = memo(function MarkerInfoCard({ markerData, onClose
 		[isOpen]
 	);
 
+	const paddingBottomClass = isIOS ? "pb-16" : "pb-5";
+
 	return (
 		<div className="fixed inset-0 z-40">
 			<div className="absolute inset-0" onClick={handleClose} />
 
 			<div className={cardContainerClassName}>
 				<div className="w-full max-w-[500px]">
-					<div className="bg-white rounded-t-2xl shadow-lg !px-8 !py-5">
+					<div className={`bg-white rounded-t-2xl shadow-lg !px-8 !py-5 ${paddingBottomClass}`}>
 						{loading ? (
 							<div className="flex items-center justify-center h-[150px]">
 								<p className="text-gray-500">관측 정보를 불러오는 중...</p>
