@@ -1,7 +1,15 @@
-import { memo, useCallback, useMemo } from "react";
+import { memo, useCallback, useMemo, useState, useEffect } from "react";
 import { Badge, BadgeGroup } from "../Badge";
-import sampleImage from "@/assets/map/sample.png";
 import { MarkerData } from "@/types";
+import { useObservationDetail } from "@/hooks/useObservationDetail";
+import defaultImage from "@/assets/map/sample.png";
+import {
+	getStarCountText,
+	getLightPollutionText,
+	getObservationTitle,
+	getObservationContent
+} from "@/utils/observationUtils";
+import { getObservationImageUrl } from "@/services/observationService";
 
 interface MarkerInfoCardProps {
 	markerData: MarkerData;
@@ -10,6 +18,20 @@ interface MarkerInfoCardProps {
 }
 
 export const MarkerInfoCard = memo(function MarkerInfoCard({ markerData, onClose, isOpen }: MarkerInfoCardProps) {
+	const { observation, loading, error } = useObservationDetail(isOpen ? markerData.id : null);
+	const [imageUrl, setImageUrl] = useState<string>(defaultImage);
+
+	useEffect(() => {
+		if (observation?.image_url) {
+			setImageUrl(observation.image_url);
+		} else if (observation?.filename) {
+			const url = getObservationImageUrl(observation.filename);
+			if (url) {
+				setImageUrl(url);
+			}
+		}
+	}, [observation]);
+
 	// 클릭 핸들러 메모이제이션
 	const handleClose = useCallback(() => {
 		onClose();
@@ -31,29 +53,50 @@ export const MarkerInfoCard = memo(function MarkerInfoCard({ markerData, onClose
 			<div className={cardContainerClassName}>
 				<div className="w-full max-w-[500px]">
 					<div className="bg-white rounded-t-2xl shadow-lg !px-8 !py-5">
-						<div className="flex !mb-10">
-							<div className="flex-1">
-								<BadgeGroup>
-									<Badge>별 3개</Badge>
-									<Badge>빛 공해 3레벨</Badge>
-								</BadgeGroup>
-								<div className="!mt-4 !ml-1">
-									<p className="text-sm font-bold">밤 하늘 기록!</p>
-									<p className="text-gray-500 text-xs">오늘 미세먼지 없더니 별 보기 좋네~</p>
+						{loading ? (
+							<div className="flex items-center justify-center h-[150px]">
+								<p className="text-gray-500">관측 정보를 불러오는 중...</p>
+							</div>
+						) : error ? (
+							<div className="flex items-center justify-center h-[150px]">
+								<p className="text-red-500">정보를 불러오지 못했습니다.</p>
+							</div>
+						) : (
+							<div className="flex !mb-10">
+								<div className="flex-1">
+									<BadgeGroup>
+										<Badge>
+											{getStarCountText(observation?.image_analysis, markerData.starCount)}
+										</Badge>
+										<Badge>
+											{getLightPollutionText(observation?.image_analysis, markerData.skyQuality)}
+										</Badge>
+									</BadgeGroup>
+									<div className="!mt-4 !ml-1">
+										<p className="text-sm font-bold">
+											{getObservationTitle(observation?.user_input, markerData.title)}
+										</p>
+										<p className="text-gray-500 text-xs">
+											{getObservationContent(
+												observation?.user_input,
+												observation?.image_analysis
+											)}
+										</p>
+									</div>
+								</div>
+
+								<div>
+									<img
+										src={imageUrl}
+										alt="밤하늘 사진"
+										className="w-[140px] h-[140px] rounded-2xl object-cover"
+										onError={(e) => {
+											(e.target as HTMLImageElement).src = defaultImage;
+										}}
+									/>
 								</div>
 							</div>
-
-							<div>
-								<img
-									src={sampleImage}
-									alt="밤하늘 사진"
-									className="w-[90px] h-[90px] rounded-2xl object-cover"
-									onError={(e) => {
-										(e.target as HTMLImageElement).src = "/assets/map/sample.png";
-									}}
-								/>
-							</div>
-						</div>
+						)}
 					</div>
 				</div>
 			</div>

@@ -1,4 +1,6 @@
 import { Card } from "./Card";
+import streetlightsIcon from "@/assets/icons/Streetlights.png";
+import reportIcon from "@/assets/icons/Report.png";
 
 interface BottomSectionProps {
 	onMapClick: () => void;
@@ -22,10 +24,25 @@ export function BottomSection({ onMapClick, onDescriptionClick, onFormClick }: B
 						title="빛공해 레벨"
 						description="빛공해가 뭐에요?"
 						height="100%"
-						className="bg-white"
+						className="bg-white relative"
 						onClick={onDescriptionClick}
+						image={
+							<div className="absolute right-2 bottom-2 p-1">
+								<img src={streetlightsIcon} alt="빛공해 레벨" width={48} height={48} />
+							</div>
+						}
 					/>
-					<Card title="빛공해 건의하기" height="100%" className="bg-white" onClick={onFormClick} />
+					<Card
+						title="빛공해 건의하기"
+						height="100%"
+						className="bg-white relative"
+						onClick={onFormClick}
+						image={
+							<div className="absolute right-2 bottom-2 p-1">
+								<img src={reportIcon} alt="빛공해 건의하기" width={48} height={48} />
+							</div>
+						}
+					/>
 				</div>
 			</div>
 

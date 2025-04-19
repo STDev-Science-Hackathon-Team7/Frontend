@@ -1,7 +1,10 @@
-import { createRoot } from "react-dom/client";
+import React from "react";
+import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 import { registerSW } from "virtual:pwa-register";
+import { LocationProvider } from "./contexts/LocationContext";
+import { WeatherProvider } from "./contexts/WeatherContext";
 
 // 서비스 워커 등록
 const updateSW = registerSW({
@@ -15,4 +18,12 @@ const updateSW = registerSW({
 	}
 });
 
-createRoot(document.getElementById("root")!).render(<App />);
+ReactDOM.createRoot(document.getElementById("root")!).render(
+	<React.StrictMode>
+		<LocationProvider>
+			<WeatherProvider>
+				<App />
+			</WeatherProvider>
+		</LocationProvider>
+	</React.StrictMode>
+);

@@ -56,15 +56,11 @@ export default function Home() {
 		navigate("/description");
 	}, []);
 
-	// TopNav에 표시할 제목 결정
 	let topNavTitle = address;
 
-	// 위치 로딩 중이면 로딩 메시지 표시
 	if (locationLoading) {
 		topNavTitle = "위치 정보 로딩 중...";
-	}
-	// 주소 로딩 중이고 기본값이 아니면 로딩 메시지 표시
-	else if (addressLoading) {
+	} else if (addressLoading) {
 		topNavTitle = "주소 정보 로딩 중...";
 	}
 	// 주소 오류가 있으면 기본 주소 표시 (이미 기본값으로 설정되어 있음)

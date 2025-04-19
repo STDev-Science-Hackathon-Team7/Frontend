@@ -30,7 +30,6 @@ const loadGoogleMapsApi = (apiKey: string): Promise<void> => {
 			return;
 		}
 
-		// 새로 로드
 		const script = document.createElement("script");
 		script.id = "google-maps-script";
 		script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=geocoding&v=weekly`;
@@ -136,27 +135,21 @@ export function useGoogleReverseGeocoding(coordinates: Coordinates | null): Addr
 						setAddress(formattedAddress);
 					} else {
 						console.error("Geocoding 실패:", status);
-						// 오류 시 기본 주소 유지
 					}
 
-					// 로딩 상태 해제 및 요청 완료 표시
 					setIsLoading(false);
 					geocodingRequestRef.current = false;
 				});
 			} catch (err) {
 				console.error("주소 조회 오류:", err);
 				setError("주소를 가져오는데 실패했습니다");
-
-				// 로딩 상태 해제 및 요청 완료 표시
 				setIsLoading(false);
 				geocodingRequestRef.current = false;
 
-				// 타임아웃 제거
 				clearTimeout(timeoutId);
 			}
 		};
 
-		// API 호출 실행
 		fetchAddress();
 
 		// 클린업 함수 - 컴포넌트 언마운트 시 실행
@@ -166,7 +159,7 @@ export function useGoogleReverseGeocoding(coordinates: Coordinates | null): Addr
 			}
 			geocodingRequestRef.current = false;
 		};
-	}, [coordinates]); // isLoading 의존성 제거
+	}, [coordinates]);
 
 	return { address, isLoading, error };
 }

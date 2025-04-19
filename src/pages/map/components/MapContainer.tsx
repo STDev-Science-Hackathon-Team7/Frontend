@@ -10,9 +10,10 @@ export function MapContainer() {
 	const navigate = useNavigate();
 	const [selectedMarker, setSelectedMarker] = useState<MarkerData | null>(null);
 	const [isCardOpen, setIsCardOpen] = useState(false);
+	const [refreshKey, setRefreshKey] = useState(0);
 
 	const handleCurrentLocation = useCallback(() => {
-		window.location.reload();
+		setRefreshKey((prev) => prev + 1);
 	}, []);
 
 	const handleRecordClick = useCallback(() => {
@@ -35,14 +36,14 @@ export function MapContainer() {
 	const recordButtonClassName = useMemo(
 		() =>
 			`absolute bottom-6 left-0 right-0 flex justify-center z-50 transition-transform duration-300 ease-in-out ${
-				isCardOpen ? "translate-y-[-160px]" : "translate-y-0"
+				isCardOpen ? "translate-y-[-210px]" : "translate-y-0"
 			}`,
 		[isCardOpen]
 	);
 
 	return (
 		<div className="relative h-full w-full">
-			<MapWrapper onMarkerSelect={handleMarkerSelect} />
+			<MapWrapper key={refreshKey} onMarkerSelect={handleMarkerSelect} />
 
 			<div className="absolute top-6 right-6 flex flex-col gap-3 z-10">
 				<LocationButton onClick={handleCurrentLocation} />

@@ -10,7 +10,7 @@ interface MapWrapperProps {
 
 export function MapWrapper({ onMarkerSelect }: MapWrapperProps) {
 	const { userLocation, loading, error } = useLocation();
-
+	console.log("userLocation", userLocation);
 	// 위치 정보 가져오는 중 표시
 	if (loading) {
 		return <LoadingMessage message="현재 위치를 가져오는 중..." />;
