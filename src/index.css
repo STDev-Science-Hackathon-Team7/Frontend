@@ -1,10 +1,11 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+@theme {
+	--color-primary: oklch(0.613 0.193 265.194);
+	--color-border: oklch(0.901 0 89.876);
+	--color-divider: oklch(0.976 0 89.876);
+	--color-gray-sub: oklch(0.573 0 89.876);
 }
 
 :root {
@@ -47,37 +48,4 @@ body {
 	margin: 0 auto;
 	min-height: 100vh;
 	position: relative;
-}
-
-ul,
-ol {
-	list-style: none;
-}
-
-img {
-	max-width: 100%;
-	height: auto;
-}
-
-input,
-textarea,
-select {
-	font-family: inherit;
-	border: none;
-	outline: none;
-	padding: 0;
-}
-
-button {
-	font-family: inherit;
-	border: none;
-	background: none;
-	cursor: pointer;
-}
-
-a {
-	font-family: inherit;
-	text-decoration: none;
-	color: inherit;
-	outline: none;
 }
