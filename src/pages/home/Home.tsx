@@ -59,7 +59,7 @@ export default function Home() {
 
 	return (
 		<div className="h-screen flex flex-col overflow-hidden">
-			<TopNav title="대전 유성구 엑스포로 107" />
+			<TopNav title="대전 유성구 엑스포로 107" showBackButton={false} />
 			<div className="flex flex-col gap-4 p-4 h-[35%]">
 				<Card
 					title="현재 기온"
