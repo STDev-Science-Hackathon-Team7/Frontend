@@ -9,6 +9,8 @@ import TextInput from "@/pages/starWrite/components/TextInput.tsx";
 import Divider from "@/pages/starWrite/components/Divider.tsx";
 import TextArea from "@/pages/starWrite/components/TextArea.tsx";
 import { useLocation } from "@/contexts/LocationContext";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const options = [
 	{ label: "0", value: "0" },
@@ -26,6 +28,7 @@ type FormState = {
 };
 
 export default function StarWrite() {
+	const navigate = useNavigate();
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [form, setForm] = useState<FormState>({
 		title: "",
@@ -37,7 +40,6 @@ export default function StarWrite() {
 
 	//위치 정보
 	const { userLocation } = useLocation();
-	console.log("write:", userLocation);
 
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -75,22 +77,38 @@ export default function StarWrite() {
 			alert("내용을 입력해주세요.");
 			return;
 		}
+		if (userLocation === null) {
+			return;
+		}
 
 		setIsLoading(true);
 
+		const apiUrl = import.meta.env.VITE_API_URL;
+
 		const formData = new FormData();
+		formData.append("latitude", String(userLocation.lat));
+		formData.append("longitude", String(userLocation.lng));
 		formData.append("title", form.title);
 		formData.append("content", form.content);
-		formData.append("starCount", form.starCount);
+		formData.append("manual_star_count_range", form.starCount);
 		formData.append("image", form.imageFile);
 
 		try {
-			await fetch("/api/star-write", {
-				method: "POST",
-				body: formData
+			const response = await axios.post(`${apiUrl}/upload`, formData, {
+				headers: {
+					"Content-Type": "multipart/form-data",
+					Accept: "application/json"
+				}
 			});
-		} catch (err) {
-			console.error(err);
+			console.log("업로드 성공:", response.data);
+			navigate("/starWriteUpload", {
+				state: {
+					uploadedData: response.data,
+					imagePreview: form.imagePreview
+				}
+			});
+		} catch (error) {
+			console.error("업로드 실패:", error);
 		} finally {
 			setIsLoading(false);
 		}
@@ -106,7 +124,7 @@ export default function StarWrite() {
 					<section className="flex flex-col gap-3 my-4">
 						<div>
 							<h3 className="text-sm font-semibold">사진을 등록해주세요</h3>
-		
+
 							<h4 className="text-xs text-gray-sub">
 								정확한 빛공해 측정을 위해 가로등이나 간판 등 인공 조명을 직접 촬영하는 것은 피해 주세요.
 							</h4>

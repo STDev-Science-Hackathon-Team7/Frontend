@@ -1,17 +1,16 @@
-import { useState } from "react";
 import Header from "@/pages/starWrite/ui/Header.tsx";
 import Footer from "@/pages/starWrite/ui/Footer.tsx";
 import Button from "@/pages/starWrite/components/Button.tsx";
-import test from "@/assets/starWrite/test.jpg";
 import StarLevelIcon1 from "@/assets/starWrite/StarLevelIcon1.svg?react";
 import StarLevelIcon2 from "@/assets/starWrite/StarLevelIcon2.svg?react";
 import StarLevelIcon3 from "@/assets/starWrite/StarLevelIcon3.svg?react";
 import StarLevelIcon4 from "@/assets/starWrite/StarLevelIcon4.svg?react";
+import { useLocation } from "react-router-dom";
 
 export default function StarWriteUpload() {
-	const [count, setCount] = useState(0);
-	const [level, setLevel] = useState<number>(1);
-	const [title, setTitle] = useState<string>("asdasddasdqw2d2");
+	const location = useLocation();
+	const { uploadedData, imagePreview } = location.state ?? {};
+	console.log("업로드 결과:", uploadedData);
 
 	const levelPositionMap = {
 		1: { position: "left-[20%]", Component: StarLevelIcon1 },
@@ -20,7 +19,7 @@ export default function StarWriteUpload() {
 		4: { position: "left-[80%]", Component: StarLevelIcon4 }
 	} as const;
 
-	const currentLevel = levelPositionMap[level as 1 | 2 | 3 | 4];
+	const currentLevel = levelPositionMap[uploadedData.image_analysis.star_category as 1 | 2 | 3 | 4];
 
 	return (
 		<div className="px-[22px] pb-20">
@@ -31,8 +30,9 @@ export default function StarWriteUpload() {
 				<div>
 					<h3 className="text-sm font-semibold">분석 결과</h3>
 					<h4 className="text-xs text-gray-sub">
-						밤 하늘에 별 개수는 <span className="text-[#1B45C9]">{count}</span>개이고, 빛공해 수준은
-						<span className="text-[#1B45C9]"> {level}레벨</span>입니다.
+						밤 하늘에 별 개수는 <span className="text-[#1B45C9]">{uploadedData.image_analysis.star_count}</span>개이고,
+						빛공해 수준은
+						<span className="text-[#1B45C9]"> {uploadedData.image_analysis.star_category}레벨 </span>입니다.
 					</h4>
 				</div>
 				<div className="mt-11 mb-4 flex gap-3 items-center justify-center">
@@ -44,12 +44,12 @@ export default function StarWriteUpload() {
 					</div>
 					<span className="text-gray-sub text-[0.625rem] min-w-7">레벨 4</span>
 				</div>
-				<img src={test} className="rounded-xl max-h-[346px] w-full" />
+				<img src={imagePreview} className="rounded-xl max-h-[346px] w-full" />
 				<div className="mt-4">
 					<h3 className="text-sm font-semibold mb-2">글 제목</h3>
 					<div
 						className="font-medium px-4 py-3 text-xs/5 border-border flex w-full min-h-22 rounded-xl border-[2px]">
-						{title}
+						{uploadedData.user_input.title}
 					</div>
 				</div>
 			</main>
