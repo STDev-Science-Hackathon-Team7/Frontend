@@ -86,11 +86,16 @@ export default function StarWrite() {
 		const apiUrl = import.meta.env.VITE_API_URL;
 
 		const formData = new FormData();
+		formData.append("latitude", String(userLocation.lat));
+		formData.append("longitude", String(userLocation.lng));
+		formData.append("title", form.title);
+		formData.append("content", form.content);
+		formData.append("manual_star_count_range", form.starCount);
 		formData.append("image", form.imageFile);
 
 		try {
 			const [response] = await Promise.all([
-				axios.post(`${apiUrl}/analyze-image`, formData, {
+				axios.post(`${apiUrl}/upload`, formData, {
 					headers: {
 						"Content-Type": "multipart/form-data",
 						Accept: "application/json"
