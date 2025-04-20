@@ -9,7 +9,7 @@ export default function Map() {
 
 	return (
 		<div className="flex flex-col h-screen">
-			<TopNav title={showSpots ? "추천 명소 지도" : "우리동네 별 지도"} backPath="/" />
+			<TopNav title={showSpots ? "밤 하늘 명소" : "밤 하늘 지도"} backPath="/" />
 			<div className="flex-1 relative">
 				<MapContainer initialShowSpots={showSpots} />
 			</div>
