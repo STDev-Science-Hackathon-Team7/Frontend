@@ -138,7 +138,7 @@ export function MapContainer({ initialShowSpots = false }: { initialShowSpots?: 
 	const recordButtonClassName = useMemo(
 		() =>
 			`absolute bottom-6 left-0 right-0 flex justify-center z-20 transition-transform duration-300 ease-in-out ${
-				isCardOpen ? (isIOS ? "translate-y-[-260px]" : "translate-y-[-210px]") : "translate-y-0"
+				isCardOpen ? (isIOS ? "translate-y-[-280px]" : "translate-y-[-210px]") : "translate-y-0"
 			}`,
 		[isCardOpen, isIOS]
 	);
