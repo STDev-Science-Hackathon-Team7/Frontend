@@ -30,13 +30,16 @@ export function WeatherCard({ isLoading, weather, airPollution }: WeatherCardPro
 	// 날씨 데이터가 있으면서 로딩 중이 아닌 경우, 캐시된 데이터를 사용하는 것으로 간주
 	const usingCachedData = !isLoading && weather !== null;
 
+	// 모든 데이터가 로드되었는지 확인
+	const isDataComplete = !isLoading && weather !== null && airPollution !== null;
+
 	return (
 		<div className="rounded-2xl border-2 border-gray-200 p-0 flex flex-col w-full h-[80%]">
 			<div className="w-full h-full flex justify-between items-center px-2">
 				<div className="flex-1 pl-6 pr-2 flex flex-col justify-center">
-					{isLoading ? (
+					{!isDataComplete ? (
 						<div className="animate-pulse">
-							<div className="h-4 bg-gray-200 rounded w-32 mb-2"></div>
+							<div className="h-4 bg-gray-200 rounded-lg w-32 mb-2"></div>
 						</div>
 					) : (
 						<div className="text-sm font-medium">{formattedDate}</div>

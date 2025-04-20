@@ -15,9 +15,9 @@ export function WeatherContent({ isLoading, weatherDescription, temp, airPolluti
 	if (isLoading) {
 		return (
 			<div className="animate-pulse flex flex-col">
-				<div className="h-6 bg-gray-200 rounded w-20 mb-2"></div>
-				<div className="h-10 bg-gray-200 rounded w-24 mb-2"></div>
-				<div className="h-4 bg-gray-200 rounded w-40"></div>
+				<div className="h-6 bg-gray-200 rounded-lg w-20 mb-2"></div>
+				<div className="h-10 bg-gray-200 rounded-lg w-24 mb-2"></div>
+				<div className="h-4 bg-gray-200 rounded-lg w-40"></div>
 			</div>
 		);
 	}
@@ -25,12 +25,18 @@ export function WeatherContent({ isLoading, weatherDescription, temp, airPolluti
 	return (
 		<div className="flex flex-col h-full">
 			<div className="text-lg font-medium mb-2">{weatherDescription}</div>
-			<div className="text-[40px] font-bold">{temp}°C</div>
-			{airPollution && (
+			{typeof temp === "number" ? (
+				<div className="text-[40px] font-bold">{temp}°C</div>
+			) : (
+				<div className="animate-pulse h-10 bg-gray-200 rounded-lg w-24 mb-2"></div>
+			)}
+			{airPollution ? (
 				<div className="mt-2 flex items-center">
 					<div className={`w-3 h-3 rounded-full ${getAqiInfo(airPollution.aqi).color} mr-1`}></div>
 					<span className="text-sm">미세먼지: {airPollution.components.pm10}μg/m³</span>
 				</div>
+			) : (
+				<div className="animate-pulse h-4 bg-gray-200 rounded-lg w-40 mt-2"></div>
 			)}
 		</div>
 	);
