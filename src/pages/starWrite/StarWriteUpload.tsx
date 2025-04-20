@@ -39,6 +39,7 @@ export default function StarWriteUpload() {
 		data.append("title", form.title);
 		data.append("content", form.content);
 		data.append("manual_star_count_range", form.starCount);
+		data.append("image_url", form.imgFile);
 
 		try {
 			const response = await axios.post(`${apiUrl}/confirm-upload`, data.toString(), {

@@ -108,6 +108,7 @@ export default function StarWrite() {
 						content: form.content,
 						starCount: form.starCount,
 						img: form.imagePreview,
+						imgFile: form.imageFile,
 						latitude: userLocation.lat,
 						longitude: userLocation.lng
 					}
