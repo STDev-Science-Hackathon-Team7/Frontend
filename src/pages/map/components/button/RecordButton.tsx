@@ -47,7 +47,7 @@ export const RecordButton = memo(function RecordButton({ onClick }: RecordButton
 		<div className={containerClassName}>
 			<div className="flex-1 flex items-center justify-center h-[38px]">
 				{isLoading ? (
-					"로딩 중..."
+					<div className="animate-pulse bg-gray-200 rounded-lg h-5 w-40"></div>
 				) : (
 					<>
 						<span>오늘의 밤 하늘&nbsp;</span>

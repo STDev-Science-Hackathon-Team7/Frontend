@@ -13,7 +13,13 @@ interface WeatherContentProps {
 
 export function WeatherContent({ isLoading, weatherDescription, temp, airPollution }: WeatherContentProps) {
 	if (isLoading) {
-		return "날씨 정보를 불러오는 중...";
+		return (
+			<div className="animate-pulse flex flex-col">
+				<div className="h-6 bg-gray-200 rounded w-20 mb-2"></div>
+				<div className="h-10 bg-gray-200 rounded w-24 mb-2"></div>
+				<div className="h-4 bg-gray-200 rounded w-40"></div>
+			</div>
+		);
 	}
 
 	return (

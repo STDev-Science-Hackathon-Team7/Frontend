@@ -34,7 +34,13 @@ export function WeatherCard({ isLoading, weather, airPollution }: WeatherCardPro
 		<div className="rounded-2xl border-2 border-gray-200 p-0 flex flex-col w-full h-[80%]">
 			<div className="w-full h-full flex justify-between items-center px-2">
 				<div className="flex-1 pl-6 pr-2 flex flex-col justify-center">
-					<div className="text-sm font-medium">{formattedDate}</div>
+					{isLoading ? (
+						<div className="animate-pulse">
+							<div className="h-4 bg-gray-200 rounded w-32 mb-2"></div>
+						</div>
+					) : (
+						<div className="text-sm font-medium">{formattedDate}</div>
+					)}
 					<div className="text-sm mt-2">
 						<WeatherContent
 							isLoading={isLoading}

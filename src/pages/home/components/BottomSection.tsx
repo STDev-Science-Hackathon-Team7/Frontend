@@ -15,7 +15,7 @@ export function BottomSection({ onMapClick, onDescriptionClick, onFormClick, onS
 			<div className="grid grid-cols-2 gap-4 h-[65%]">
 				<Card
 					title="밤 하늘 지도"
-					description="등록 및 히트맵"
+					description="우리 동네 밤 하늘 구경하기"
 					height="100%"
 					className="bg-[#1B45C9] text-white"
 					onClick={onMapClick}

@@ -8,7 +8,7 @@ export function WeatherIcon({ isLoading, icon, description }: WeatherIconProps) 
 	if (isLoading || !icon) {
 		return (
 			<div className="w-[160px] h-[160px] flex items-center justify-center">
-				<div className="animate-pulse rounded-full bg-gray-200 w-[180px] h-[180px]"></div>
+				<div className="animate-pulse rounded-lg bg-gray-200 w-[130px] h-[130px]"></div>
 			</div>
 		);
 	}
