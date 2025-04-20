@@ -52,7 +52,7 @@ export const MarkerInfoCard = memo(function MarkerInfoCard({ markerData, onClose
 		[isOpen]
 	);
 
-	const paddingBottomClass = isIOS ? "pb-20" : "pb-5";
+	const paddingBottomClass = isIOS ? "pb-16" : "pb-5";
 
 	return (
 		<div className="fixed inset-0 z-40">
